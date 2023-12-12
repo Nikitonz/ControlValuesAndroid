@@ -86,12 +86,12 @@
         <ImageView
             android:id="@+id/burgerMenu"
             android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
-            android:src="@drawable/ic_menu_white_24dp"
-            android:padding="8dp"
             android:layout_marginLeft="16dp"
-            android:contentDescription="Burger Menu" />
+            android:contentDescription="Burger Menu"
+            android:padding="8dp"
+            android:src="@drawable/ic_menu_white_24dp" />
 
         <!-- Analysis Tools Buttons (Add your own buttons here) -->
         <ImageButton
