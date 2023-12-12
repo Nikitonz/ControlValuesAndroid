@@ -1,0 +1,119 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TableView">
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomBar"
+        android:layout_margin="16dp">
+
+        <!-- Header Row -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/header1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Column 1" />
+
+            <EditText
+                android:id="@+id/header2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Column 2" />
+
+        </TableRow>
+
+        <!-- Data Rows -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/row1col1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Row 1, Col 1" />
+
+            <EditText
+                android:id="@+id/row1col2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Row 1, Col 2" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/row2col1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Row 2, Col 1" />
+
+            <EditText
+                android:id="@+id/row2col2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Row 2, Col 2" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <FrameLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/colorPrimary">
+
+        <!-- Burger Menu -->
+        <ImageView
+            android:id="@+id/burgerMenu"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="start|center_vertical"
+            android:src="@drawable/ic_menu_white_24dp"
+            android:padding="8dp"
+            android:layout_marginLeft="16dp"
+            android:contentDescription="Burger Menu" />
+
+        <!-- Analysis Tools Buttons (Add your own buttons here) -->
+        <ImageButton
+            android:id="@+id/sumButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/ic_sum"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="Sum" />
+
+        <ImageButton
+            android:id="@+id/averageButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/ic_average"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="Average" />
+
+        <!-- Add more buttons as needed -->
+
+    </FrameLayout>
+
+</RelativeLayout>
