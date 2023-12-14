@@ -1,13 +1,17 @@
 package com.nikitonz.controlvalues
 
+
 import android.content.ContentValues
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import at.favre.lib.crypto.bcrypt.BCrypt
+
 import android.util.Log
+import androidx.lifecycle.viewmodel.CreationExtras
+
 class RegLogonActivity : AppCompatActivity() {
 
     private lateinit var dbHelper: DatabaseHelper
@@ -76,11 +80,19 @@ class RegLogonActivity : AppCompatActivity() {
 
         try {
 
+
             if (isUserExists(username)) {
                 Toast.makeText(this, "User with this username already exists", Toast.LENGTH_SHORT)
                     .show()
                 setLoginWindow()
             } else {
+                if (username=="" || password==""){
+                    Toast.makeText(this, "login or password cannot be empty",Toast.LENGTH_SHORT).show()
+                    throw Exception("login or password cannot be empty")}
+                if (password.length<4 || username.length<3){
+                    Toast.makeText(this, "login cannot be less than 3; password cannot be less than 4",Toast.LENGTH_SHORT).show()
+                    throw Exception("login or password cannot be less than limitations")
+                }
                 val values = ContentValues().apply {
                     put(UserContract.COLUMN_USERNAME, username)
                     put(UserContract.COLUMN_PASSWORD, password)
@@ -157,8 +169,13 @@ class RegLogonActivity : AppCompatActivity() {
         setRegWindow()
     }
     fun gotoMain(){
+        try {
+            val intent = Intent(this, TableView::class.java)
+            startActivity(intent)
+        }catch (e:Exception){
+            Log.e("tag", e.toString())
+        }
 
-        setContentView(R.layout.activity_table_view)
 
     }
 }
