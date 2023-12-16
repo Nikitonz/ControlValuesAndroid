@@ -170,7 +170,7 @@ class RegLogonActivity : AppCompatActivity() {
     }
     fun gotoMain(){
         try {
-            val intent = Intent(this, TableView::class.java)
+            val intent = Intent(this, TableViewActivity::class.java)
             startActivity(intent)
         }catch (e:Exception){
             Log.e("tag", e.toString())

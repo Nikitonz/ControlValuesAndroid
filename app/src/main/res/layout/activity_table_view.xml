@@ -1,146 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <TableLayout
-            android:id="@+id/tableLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp"
-            android:stretchColumns="*">
-
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/header_shape"
-                    android:gravity="center"
-                    android:text="Name"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/header_shape"
-                    android:gravity="center"
-                    android:text="Phone"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:background="@drawable/header_shape"
-                    android:gravity="center"
-                    android:text="Email"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-
-            </TableRow>
-
-        </TableLayout>
-
-    </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/addLayout"
-        android:layout_width="250dp"
-        android:layout_height="188dp"
-        android:layout_marginTop="300dp"
-        android:background="@drawable/cell_shape"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
+    <HorizontalScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scrollview">
+        app:layout_constraintEnd_toEndOf="parent">
 
-
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:orientation="horizontal">
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/header_shape"
-                    android:gravity="left"
-                    android:text="Contact Details"
-                    android:textSize="25dp"
-                    android:textStyle="bold"></TextView>
-
-                <EditText
-                    android:id="@+id/nameEditText"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/cell_shape"
-                    android:hint="Name"
-                    android:textAlignment="center" />
-
-                <EditText
-                    android:id="@+id/numberEditText"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/cell_shape"
-                    android:hint="Number"
-                    android:inputType="phone"
-                    android:textAlignment="center" />
-
-                <EditText
-                    android:id="@+id/emailEditText"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/cell_shape"
-                    android:hint="Email"
-                    android:textAlignment="center" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-        <Button
-            android:id="@+id/addButton"
+        <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:text="Add" />
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
+            <TableLayout
+                android:id="@+id/tableLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:background="#FFFFFF"
+                android:padding="5dp"
+                android:layout_margin="10dp">
+
+            </TableLayout>
+        </ScrollView>
+
+    </HorizontalScrollView>
 
     <FrameLayout
         android:id="@+id/bottomBar"
@@ -151,37 +41,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="29dp">
 
-
-        <ImageView
-            android:id="@+id/burgerMenu"
-            android:layout_width="48dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
-            android:layout_marginLeft="16dp"
-            android:contentDescription="Burger Menu"
-            android:padding="8dp"
-            android:src="@drawable/ic_menu_white_24dp" />
-
-
         <ImageButton
             android:id="@+id/sumButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="36dp"
+            android:layout_height="39dp"
             android:layout_gravity="end|center_vertical"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="Sum"
             android:src="@drawable/ic_sum" />
-
-        <ImageButton
-            android:id="@+id/averageButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="end|center_vertical"
-            android:background="?android:attr/selectableItemBackground"
-            android:contentDescription="Average"
-            android:src="@drawable/ic_average" />
-
-        <!-- Add more buttons as needed -->
 
     </FrameLayout>
 
