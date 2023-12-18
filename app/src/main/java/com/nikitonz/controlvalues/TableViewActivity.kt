@@ -1,17 +1,26 @@
 package com.nikitonz.controlvalues
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Gravity
+import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TableLayout
 import android.widget.TableRow
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.core.view.children
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
+import java.lang.Exception
 
 class TableViewActivity : AppCompatActivity() {
 
@@ -39,10 +48,49 @@ class TableViewActivity : AppCompatActivity() {
         if (loadedData.isNotEmpty()) {
 
             restoreTable(loadedData)
+
         } else {
 
-            addRowToTable("", "")
+            addRowToTable("")
         }
+        var navigationView: NavigationView = findViewById(R.id.navigationView)
+        navigationView.getChildAt(0).setOnClickListener {}
+        var drawerLayout: DrawerLayout = findViewById(R.id.drawerLayout)
+        var hamburgerButton: ImageButton = findViewById(R.id.hamburger)
+        var averageButton: Button = findViewById<Button>(R.id.averageButton)
+        var sumButtonInDrawer: Button = findViewById<Button>(R.id.sumButtonInDrawer)
+        var aboutTextView: TextView = findViewById<TextView>(R.id.aboutTextView)
+
+        averageButton.setOnClickListener {
+            Toast.makeText(this, "Average Button Clicked", Toast.LENGTH_SHORT).show()
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
+
+        sumButtonInDrawer.setOnClickListener {
+            // Обработка нажатия на кнопку "Сумма" в боковой панели
+            // Добавьте свой код обработки события здесь
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
+
+        aboutTextView.setOnClickListener {
+            try{
+                val intent = Intent(this, AboutActivity::class.java)
+                startActivity(intent)
+
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } catch (e:Exception){
+                Log.e("DEBUG_ERR", e.toString())
+            }
+        }
+
+        hamburgerButton.setOnClickListener {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
+
     }
 
     private fun restoreTable(data: Array<Array<String>>) {
@@ -52,6 +100,17 @@ class TableViewActivity : AppCompatActivity() {
         for (i in data.indices) {
             val columnTexts = data[i]
             addRowToTable(*columnTexts)
+        }
+
+
+        if (rowCount > 1) {
+            val firstRow = tableLayout.getChildAt(0) as? TableRow
+            if (firstRow != null) {
+                for (j in 0 until firstRow.childCount) {
+                    val editText = firstRow.getChildAt(j) as? EditText
+                    editText?.setBackgroundResource(R.drawable.table_header_cell_border)
+                }
+            }
         }
     }
 
@@ -175,7 +234,43 @@ class TableViewActivity : AppCompatActivity() {
                 }
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+
+                if (s.isNullOrBlank()) {
+
+                    val hasValuesInRow = (0 until row.childCount)
+                        .map { (row.getChildAt(it) as? EditText)?.text?.toString().isNullOrBlank() }
+                        .any { !it }
+
+
+                    val hasValuesInColumn = (0 until tableLayout.childCount)
+                        .map { (tableLayout.getChildAt(it) as? TableRow)?.getChildAt(row.indexOfChild(editText)) as? EditText }
+                        .map { it?.text?.toString().isNullOrBlank() }
+                        .any { !it }
+
+
+                    if (!hasValuesInRow) {
+                        removeRow(row)
+                    }
+
+                    if (!hasValuesInColumn) {
+                        removeColumn(row.indexOfChild(editText))
+                    }
+                }
+            }
         })
+    }
+
+    private fun removeRow(row: TableRow) {
+        tableLayout.removeView(row)
+        rowCount -= 1
+    }
+
+    private fun removeColumn(columnIndex: Int) {
+        for (i in 0 until tableLayout.childCount) {
+            val row = tableLayout.getChildAt(i) as? TableRow
+            row?.removeViewAt(columnIndex)
+        }
+        columnCount -= 1
     }
 }

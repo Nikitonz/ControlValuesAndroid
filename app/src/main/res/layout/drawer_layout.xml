@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <!-- Кнопка "Среднее" -->
+    <Button
+        android:id="@+id/averageButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Среднее" />
+
+    <!-- Кнопка "Сумма" -->
+    <Button
+        android:id="@+id/sumButtonInDrawer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Сумма" />
+
+    <!-- Поле о программе -->
+    <TextView
+        android:id="@+id/aboutTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="О программе"
+        android:textSize="18sp" />
+</LinearLayout>
