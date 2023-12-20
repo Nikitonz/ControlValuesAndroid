@@ -72,7 +72,7 @@ class DatabaseHelper(private val context: Context) : SQLiteOpenHelper(context, D
         return exists
     }
 
-    private fun insertUser(username: String, password: String, db: SQLiteDatabase) {
+    fun insertUser(username: String, password: String, db: SQLiteDatabase) {
 
         deleteUser(DEFAULT_USERNAME, db)
 

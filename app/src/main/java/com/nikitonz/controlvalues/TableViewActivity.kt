@@ -172,7 +172,8 @@ class TableViewActivity : AppCompatActivity() {
         }
         val createUserB= findViewById<LinearLayout>(R.id.createUser)
         createUserB.setOnClickListener {
-            setRegWindow()
+            val intent = Intent(this, RegistrationActivity::class.java)
+            startActivity(intent)
         }
 
         val shareWith= findViewById<LinearLayout>(R.id.shareWith)
@@ -184,86 +185,6 @@ class TableViewActivity : AppCompatActivity() {
 
         }
         resultBar = findViewById(R.id.resultBar)
-
-    }
-    fun setRegWindow(){
-        var dbHelper = DatabaseHelper(this)
-        dbHelper.close()
-        fun saveUser(username: String, password: String) {
-            try {
-                val db = dbHelper.readableDatabase
-                val selection = "${UserContract.COLUMN_USERNAME} = ?"
-                val selectionArgs = arrayOf(username)
-
-                val cursor = db.query(
-                    UserContract.TABLE_NAME,
-                    null,
-                    selection,
-                    selectionArgs,
-                    null,
-                    null,
-                    null
-                )
-
-                val userExists = cursor.count > 0
-                cursor.close()
-                db.close()
-
-
-                if (userExists) {
-                    Toast.makeText(this, "Пользователь с таким именем уже существует", Toast.LENGTH_SHORT)
-                        .show()
-
-                } else {
-                    if (username=="" || password==""){
-                        Toast.makeText(this, "Логин не может быть пустым",Toast.LENGTH_SHORT).show()
-                        throw Exception("login or password cannot be empty")}
-                    if (password.length<4 || username.length<3){
-                        Toast.makeText(this, "Требования: логин>3, пароль>4",Toast.LENGTH_SHORT).show()
-                        throw Exception("login or password cannot be less than limitations")
-                    }
-                    val values = ContentValues().apply {
-                        put(UserContract.COLUMN_USERNAME, username)
-                        put(UserContract.COLUMN_PASSWORD, password)
-                    }
-                    var db = dbHelper.writableDatabase
-                    val newRowId = db.insert(UserContract.TABLE_NAME, null, values)
-                    db.close()
-                    if (newRowId != -1L) {
-                        Toast.makeText(this, "Новый пользователь зарегистрирован", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(this, "Ошибка", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            } catch (e: Exception) {
-                Log.e("Registration", "Exception: ${e.message}", e)
-            }
-        }
-
-
-        setContentView(R.layout.activity_registration)
-        val editTextUsername = findViewById<EditText>(R.id.sign_in_email)
-        val editTextPassword = findViewById<EditText>(R.id.sign_in_password)
-        val buttonRegister = findViewById<AppCompatButton>(R.id.buttonRegister)
-        val goTouchGrass = findViewById<TextView>(R.id.orSnow)
-
-
-        buttonRegister.setOnClickListener {
-            val username = editTextUsername.text.toString()
-            val password = editTextPassword.text.toString()
-            saveUser(username, password)
-
-        }
-        goTouchGrass.setOnClickListener {
-            val intent = Intent(this, TableViewActivity::class.java)
-
-            startActivity(intent)
-            finish()
-        }
-
-
-
-
 
     }
 

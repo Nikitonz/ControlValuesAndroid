@@ -36,6 +36,10 @@
             android:name=".TableViewActivity"
             android:label="Second Activity">
         </activity>
+        <activity
+            android:name=".RegistrationActivity"
+            android:label="Second Activity">
+        </activity>
 
     </application>
 
