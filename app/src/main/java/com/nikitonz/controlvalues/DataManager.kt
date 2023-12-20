@@ -12,7 +12,7 @@ class DataManager(private val context: Context) {
     private val fileName = "dump.csv"
     private val delimiter = ";"
 
-    // Сохранение данных в файл
+
     fun saveData(data: Array<Array<String>>) {
         try {
             val file = File(context.filesDir, fileName)

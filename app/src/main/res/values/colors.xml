@@ -2,6 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="grey">#8BC34A</color>
+
     <color name="header_cell_background">#8BC34A</color>
+    <color name="pale_orange">#FFEFD5</color>
+    <color name="startGreenColor">#654321</color>
+    <color name="endGreenColor">#6F4F28</color>
+    <color name="recyclerViewColor">#f4f4f4</color>
 </resources>

@@ -8,7 +8,10 @@
     android:layout_height="match_parent"
     tools:context=".TableViewActivity">
 
-    <!-- Основной контент -->
+
+
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -53,7 +56,7 @@
                 android:src="@drawable/ic_burger_menu" />
 
             <ImageButton
-                android:id="@+id/sumButton"
+                android:id="@+id/saveButton"
                 android:layout_width="61dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end|center_vertical"
@@ -61,11 +64,47 @@
                 android:contentDescription="Sum"
                 android:src="@drawable/ic_save_b" />
 
+            <TextView
+                android:id="@+id/resultBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:gravity="center"
+                android:text="
+"
+                android:textColor="#000000" />
+
         </FrameLayout>
 
+        <LinearLayout
+            android:id="@+id/Laja"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_above="@id/bottomBar"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <EditText
+                android:id="@+id/searchPane"
+                android:layout_width="379dp"
+                android:layout_height="40dp"
+                android:inputType="text"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/closeSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="end|center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="end"
+                android:src="@drawable/close" />
+
+        </LinearLayout>
     </RelativeLayout>
 
-    <!-- Панель с кнопками -->
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
         android:layout_width="wrap_content"

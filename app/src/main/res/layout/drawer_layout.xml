@@ -1,32 +1,299 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:orientation="vertical">
+    android:background="#FFFFFF">
 
-    <!-- Кнопка "Среднее" -->
-    <Button
-        android:id="@+id/averageButton"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/containerc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/averageButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/containerc"
+                android:background="@color/white"
+                android:gravity="center|center_vertical"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="end"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/average" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Среднее"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/averageButton"
+                android:background="#000000" />
+
+            <LinearLayout
+                android:id="@+id/sumButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/averageButton"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center|center_vertical"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/sum" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Сумма"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/sumButton"
+                android:background="#000000" />
+
+
+            <LinearLayout
+                android:id="@+id/maxB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sumButton"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center|center_vertical"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/max" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Максимум"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/maxB"
+                android:background="#000000" />
+
+            <LinearLayout
+                android:id="@+id/minB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/maxB"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center|center_vertical"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/min" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Минимум"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/minB"
+                android:background="#000000" />
+
+
+            <LinearLayout
+                android:id="@+id/searchButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/minB"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center|center_vertical"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/todo"
+                    android:src="@drawable/find" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Найти"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_below="@id/searchButton"
+                android:background="#000000" />
+
+
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/aboutProg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Среднее" />
 
-    <!-- Кнопка "Сумма" -->
-    <Button
-        android:id="@+id/sumButtonInDrawer"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal"
+        android:padding="3dp">
+
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/info" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="О программе"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_above="@id/aboutProg"
+        android:background="#000000" />
+
+    <LinearLayout
+        android:id="@+id/createUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Сумма" />
+        android:layout_above="@id/aboutProg"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal"
+        android:padding="3dp">
 
-    <!-- Поле о программе -->
-    <TextView
-        android:id="@+id/aboutTextView"
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/patt" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Новый пользователь"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_above="@id/createUser"
+        android:background="#000000" />
+
+    <LinearLayout
+        android:id="@+id/shareWith"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="О программе"
-        android:textSize="18sp" />
-</LinearLayout>
+        android:layout_above="@id/createUser"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal"
+        android:padding="3dp">
+
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/share" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Отправить"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_above="@id/shareWith"
+        android:background="#000000" />
+</RelativeLayout>

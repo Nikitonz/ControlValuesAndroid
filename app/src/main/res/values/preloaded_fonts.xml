@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/baloo_bhai_2</item>
+        <item>@font/covered_by_your_grace</item>
+        <item>@font/margarine</item>
+        <item>@font/sue_ellen_francisco</item>
+        <item>@font/yellowtail</item>
+    </array>
+</resources>

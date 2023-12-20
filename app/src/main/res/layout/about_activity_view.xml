@@ -55,7 +55,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ek9aacnmca231"
+        app:srcCompat="@drawable/lolban"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

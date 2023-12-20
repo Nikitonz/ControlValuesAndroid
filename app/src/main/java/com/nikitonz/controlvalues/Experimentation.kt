@@ -23,7 +23,7 @@ private lateinit var tableLayout: TableLayout
         // Create initial table with 2 rows and 2 columns
         addRowToTable("", "")
         addRowToTable("", "")
-        var sumButton = findViewById<ImageButton>(R.id.sumButton)
+        var sumButton = findViewById<ImageButton>(R.id.saveButton)
         sumButton.setOnClickListener {
         addColumnToTable()
         }
