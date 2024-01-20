@@ -66,7 +66,7 @@ class AboutActivity : AppCompatActivity() {
             }
         }
 
-
+/*
         val lolBanImageView = findViewById<ImageView>(R.id.lolBan)
 
         val audioDuration = getAudioDuration(R.raw.cave2)
@@ -94,7 +94,7 @@ class AboutActivity : AppCompatActivity() {
 
 
 
-        }, 5000)
+        }, 5000)*/
     }
 
     private fun playSound() {
