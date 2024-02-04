@@ -8,4 +8,13 @@
     <color name="startGreenColor">#654321</color>
     <color name="endGreenColor">#6F4F28</color>
     <color name="recyclerViewColor">#f4f4f4</color>
+
+
+    <!-- Для светлой темы -->
+    <color name="lightTextColor">#000000</color>
+    <color name="lightBackgroundColor">#FFFFFF</color>
+
+    <!-- Для темной темы -->
+    <color name="darkTextColor">#FFFFFF</color>
+    <color name="darkBackgroundColor">#000000</color>
 </resources>

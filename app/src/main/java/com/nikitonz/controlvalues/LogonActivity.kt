@@ -3,6 +3,7 @@ package com.nikitonz.controlvalues
 
 import android.content.ContentValues
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
@@ -10,14 +11,30 @@ import android.widget.Toast
 
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.ContextCompat
 
 class LogonActivity : AppCompatActivity() {
 
     private lateinit var dbHelper: DatabaseHelper
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
+        dbHelper = DatabaseHelper(this)
+        dbHelper.close()
+        setLoginWindow()
+
+    }
+    fun gotoMain(){
+        val intent = Intent(this, TableViewActivity::class.java)
+        startActivity(intent)
+        this.finish()
+    }
 
     fun setLoginWindow(){
+
+
         setContentView(R.layout.activity_auth)
 
         val editTextUsernameLogin = findViewById<EditText>(R.id.sign_in_email)
@@ -82,16 +99,5 @@ class LogonActivity : AppCompatActivity() {
 
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        dbHelper = DatabaseHelper(this)
-        dbHelper.close()
-        setLoginWindow()
 
-    }
-    fun gotoMain(){
-        val intent = Intent(this, TableViewActivity::class.java)
-        startActivity(intent)
-        this.finish()
-    }
 }

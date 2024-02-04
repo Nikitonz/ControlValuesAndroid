@@ -1,21 +1,13 @@
 package com.nikitonz.controlvalues
 
 import android.bluetooth.BluetoothAdapter
-import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.TransitionDrawable
-
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.Gravity
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
@@ -24,43 +16,36 @@ import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
-import androidx.core.view.children
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
-import java.lang.Exception
-import java.lang.Integer.max
-import java.lang.Integer.min
-import kotlin.math.absoluteValue
 
 class TableViewActivity : AppCompatActivity() {
 
 
 
-    private lateinit var tableLayout: TableLayout
-    private lateinit var resultBar:TextView
-    private var rowCount = 1
-    private var columnCount = 1
-    private lateinit var dataManager: DataManager
+
+
     private var isSelectionModeEnabled: Boolean = false
     private val selectedCellCoordinates = mutableListOf<Pair<Int, Int>>()
     private var operationType = OperationType.NONE
 
+    private lateinit var tableLayout: TableLayout
+    private lateinit var resultBar:TextView
+    private lateinit var dataManager: DataManager
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var tableAdapter: TableAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_table_view)
 
-        tableLayout = findViewById(R.id.tableLayout)
+        //tableLayout = findViewById(R.id.tableLayout)
+
+
+        /*
         dataManager = DataManager(this)
-        val buttonSave = findViewById<ImageButton>(R.id.saveButton)
-        buttonSave.setOnClickListener {
-            saveDataToManager()
-            Toast.makeText(this,"saved data...",Toast.LENGTH_SHORT).show()
-
-        }
-
         val loadedData = dataManager.loadData()
         if (loadedData.isNotEmpty()) {
 
@@ -70,199 +55,24 @@ class TableViewActivity : AppCompatActivity() {
 
             addRowToTable("")
         }
-        val navigationView: NavigationView = findViewById(R.id.navigationView)
-        navigationView.getChildAt(0).setOnClickListener {}
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayout)
-        val hamburgerButton: ImageButton = findViewById(R.id.hamburger)
+        */
+
+        createControlonCreate()
+        recyclerView = findViewById(R.id.recyclerView)
+        tableAdapter = TableAdapter(this)
+        recyclerView.adapter = tableAdapter
+
+        val mLayoutManager = object : GridLayoutManager(this, 1) {}
+        recyclerView.layoutManager = mLayoutManager
 
 
-        hamburgerButton.setOnClickListener {
-            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                drawerLayout.closeDrawer(GravityCompat.START)
-            } else {
-                drawerLayout.openDrawer(GravityCompat.START)
-            }
-        }
-
-        val averageButton = findViewById<LinearLayout>(R.id.averageButton)
-        val sumButtonInDrawer = findViewById<LinearLayout>(R.id.sumButton)
-        val maxB= findViewById<LinearLayout>(R.id.maxB)
-        val minB= findViewById<LinearLayout>(R.id.minB)
-        val findAnything= findViewById<LinearLayout>(R.id.searchButton)
+        tableAdapter.addRow(listOf("Data1", "Data2", "Data3"))
+        tableAdapter.addRow(listOf("Data4", "Data5", "Data6"))
+        tableAdapter.addRow(listOf("Data7", "Data8", "Data99", "Data10", "Data10", "Data10", "Data10", "Data10"))
+        tableAdapter.addRow(listOf("Data4", "Data5", "Data6"))
+        tableAdapter.addRow(listOf("Data4", "Data5", "Data6"))
 
 
-        averageButton.setOnClickListener {
-            isSelectionModeEnabled=true
-            Toast.makeText(this, "Режим разметки включен", Toast.LENGTH_SHORT).show()
-            drawerLayout.closeDrawer(GravityCompat.START)
-            operationType=OperationType.AVERAGE
-        }
-
-        sumButtonInDrawer.setOnClickListener {
-            isSelectionModeEnabled=true
-            Toast.makeText(this, "Режим разметки включен", Toast.LENGTH_SHORT).show()
-            drawerLayout.closeDrawer(GravityCompat.START)
-            operationType=OperationType.SUM
-        }
-        val aboutTextView= findViewById<LinearLayout>(R.id.aboutProg)
-        aboutTextView.setOnClickListener {
-            try{
-                val intent = Intent(this, AboutActivity::class.java)
-                startActivity(intent)
-                drawerLayout.closeDrawer(GravityCompat.START)
-            } catch (e:Exception){
-                Log.e("DEBUG_ERR", e.toString())
-            }
-        }
-
-        maxB.setOnClickListener {
-            isSelectionModeEnabled=true
-            Toast.makeText(this, "Режим разметки включен", Toast.LENGTH_SHORT).show()
-            drawerLayout.closeDrawer(GravityCompat.START)
-            operationType=OperationType.MAX
-        }
-
-        minB.setOnClickListener {
-            isSelectionModeEnabled=true
-            Toast.makeText(this, "Режим разметки включен", Toast.LENGTH_SHORT).show()
-            drawerLayout.closeDrawer(GravityCompat.START)
-            operationType=OperationType.MIN
-        }
-        val searchPaneLayout = findViewById<LinearLayout>(R.id.Laja)
-        val searchEditText = findViewById<EditText>(R.id.searchPane)
-        val closeSearch = findViewById<ImageButton>(R.id.closeSearch)
-        closeSearch.setOnClickListener {
-            searchPaneLayout.visibility = View.GONE
-            colourToStandart()
-        }
-        findAnything.setOnClickListener {
-
-                drawerLayout.closeDrawer(GravityCompat.START)
-                operationType = OperationType.FIND
-                searchPaneLayout.visibility = View.VISIBLE
-
-                searchEditText.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        charSequence: CharSequence?,
-                        start: Int,
-                        count: Int,
-                        after: Int
-                    ) {
-
-                    }
-
-                    override fun onTextChanged(
-                        charSequence: CharSequence?,
-                        start: Int,
-                        before: Int,
-                        count: Int
-                    ) {
-
-                    }
-
-                    override fun afterTextChanged(editable: Editable?) {
-
-                        val searchText = editable.toString()
-
-                        performSearch(searchText)
-                    }
-                })
-                drawerLayout.closeDrawer(GravityCompat.START)
-                operationType = OperationType.FIND
-        }
-        val createUserB= findViewById<LinearLayout>(R.id.createUser)
-        createUserB.setOnClickListener {
-            val intent = Intent(this, RegistrationActivity::class.java)
-            startActivity(intent)
-        }
-
-        val shareWith= findViewById<LinearLayout>(R.id.shareWith)
-        shareWith.setOnClickListener {
-            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-            if (enableBtIntent.resolveActivity(packageManager) != null) {
-                startActivity(Intent.createChooser(enableBtIntent, "share"))
-            }
-
-        }
-        resultBar = findViewById(R.id.resultBar)
-
-    }
-
-    fun performSearch(searchText: String) {
-        val tableRows = tableLayout.childCount
-
-        for (i in 0 until tableRows) {
-            val row = tableLayout.getChildAt(i) as TableRow
-            val cells = row.childCount
-
-            for (j in 0 until cells) {
-                val cell = row.getChildAt(j) as TextView
-                val cellText = cell.text.toString()
-
-
-                if (cellText.contains(searchText, ignoreCase = true) and searchText.isNotEmpty()) {
-
-                    cell.setBackgroundColor(Color.YELLOW)
-                } else if (i!=0){
-
-                    cell.setBackgroundResource(R.drawable.table_cell_border)
-                } else{
-                    cell.setBackgroundResource(R.drawable.table_header_cell_border)
-                }
-
-            }
-        }
-    }
-    private fun restoreTable(data: Array<Array<String>>) {
-        rowCount = data.size
-        columnCount = if (data.isNotEmpty()) data[0].size else 1
-
-        for (i in data.indices) {
-            val columnTexts = data[i]
-            addRowToTable(*columnTexts)
-        }
-
-
-        colourToStandart()
-    }
-    private fun colourToStandart(){
-
-        val firstRow = tableLayout.getChildAt(0) as? TableRow
-        if (firstRow != null) {
-            for (j in 0 until firstRow.childCount) {
-                val editText = firstRow.getChildAt(j) as? EditText
-                editText?.setBackgroundResource(R.drawable.table_header_cell_border)
-            }
-        }
-        if (tableLayout.childCount!=1) {
-            for (i in 1 until tableLayout.childCount) {
-                val row = tableLayout.getChildAt(i) as TableRow
-                for (j in 0 until row.childCount+1) {
-                    val editText = row.getChildAt(j) as? EditText
-                    editText?.setBackgroundResource(R.drawable.table_cell_border)
-                }
-
-            }
-        }
-
-    }
-    private fun saveDataToManager() {
-        val data = mutableListOf<Array<String>>()
-
-        for (i in 0 until tableLayout.childCount) {
-            val row = tableLayout.getChildAt(i) as? TableRow
-            if (row != null) {
-                val rowData = mutableListOf<String>()
-
-                for (j in 0 until row.childCount) {
-                    val editText = row.getChildAt(j) as? EditText
-                    rowData.add(editText?.text?.toString() ?: "")
-                }
-
-                data.add(rowData.toTypedArray())
-            }
-        }
-        dataManager.saveData(data.toTypedArray())
     }
 
 
@@ -271,6 +81,8 @@ class TableViewActivity : AppCompatActivity() {
 
 
 
+
+    /*
     private fun addRowToTable(vararg columnTexts: String) {
         val row = TableRow(this)
         val params = TableRow.LayoutParams(
@@ -497,6 +309,209 @@ class TableViewActivity : AppCompatActivity() {
 
     }
 
+    private fun restoreTable(data: Array<Array<String>>) {
+        rowCount = data.size
+        columnCount = if (data.isNotEmpty()) data[0].size else 1
+
+        for (i in data.indices) {
+            val columnTexts = data[i]
+            addRowToTable(*columnTexts)
+        }
+
+
+        colourToStandart()
+    }
+*/
+    private fun createControlonCreate(){
+        val buttonSave = findViewById<ImageButton>(R.id.saveButton)
+
+        buttonSave.setOnClickListener {
+            saveDataToManager()
+            Toast.makeText(this,"saved data...",Toast.LENGTH_SHORT).show()
+
+        }
+        val navigationView: NavigationView = findViewById(R.id.navigationView)
+        navigationView.getChildAt(0).setOnClickListener {}
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayout)
+        val hamburgerButton: ImageButton = findViewById(R.id.hamburger)
+
+
+        hamburgerButton.setOnClickListener {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
+
+        val averageButton = findViewById<LinearLayout>(R.id.averageButton)
+        val sumButtonInDrawer = findViewById<LinearLayout>(R.id.sumButton)
+        val maxB= findViewById<LinearLayout>(R.id.maxB)
+        val minB= findViewById<LinearLayout>(R.id.minB)
+        val findAnything= findViewById<LinearLayout>(R.id.searchButton)
+
+
+        averageButton.setOnClickListener {
+            isSelectionModeEnabled=true
+            Toast.makeText(this, "Режим разметки включен", Toast.LENGTH_SHORT).show()
+            drawerLayout.closeDrawer(GravityCompat.START)
+            operationType=OperationType.AVERAGE
+        }
+
+        sumButtonInDrawer.setOnClickListener {
+            isSelectionModeEnabled=true
+            Toast.makeText(this, "Режим разметки включен", Toast.LENGTH_SHORT).show()
+            drawerLayout.closeDrawer(GravityCompat.START)
+            operationType=OperationType.SUM
+        }
+        val aboutTextView= findViewById<LinearLayout>(R.id.aboutProg)
+        aboutTextView.setOnClickListener {
+            try{
+                val intent = Intent(this, AboutActivity::class.java)
+                startActivity(intent)
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } catch (e:Exception){
+                Log.e("DEBUG_ERR", e.toString())
+            }
+        }
+
+        maxB.setOnClickListener {
+            isSelectionModeEnabled=true
+            Toast.makeText(this, "Режим разметки включен", Toast.LENGTH_SHORT).show()
+            drawerLayout.closeDrawer(GravityCompat.START)
+            operationType=OperationType.MAX
+        }
+
+        minB.setOnClickListener {
+            isSelectionModeEnabled=true
+            Toast.makeText(this, "Режим разметки включен", Toast.LENGTH_SHORT).show()
+            drawerLayout.closeDrawer(GravityCompat.START)
+            operationType=OperationType.MIN
+        }
+        val searchPaneLayout = findViewById<LinearLayout>(R.id.Laja)
+        val searchEditText = findViewById<EditText>(R.id.searchPane)
+        val closeSearch = findViewById<ImageButton>(R.id.closeSearch)
+        closeSearch.setOnClickListener {
+            searchPaneLayout.visibility = View.GONE
+            colourToStandart()
+        }
+        findAnything.setOnClickListener {
+
+            drawerLayout.closeDrawer(GravityCompat.START)
+            operationType = OperationType.FIND
+            searchPaneLayout.visibility = View.VISIBLE
+
+            searchEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    charSequence: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+
+                }
+
+                override fun onTextChanged(
+                    charSequence: CharSequence?,
+                    start: Int,
+                    before: Int,
+                    count: Int
+                ) {
+
+                }
+
+                override fun afterTextChanged(editable: Editable?) {
+
+                    val searchText = editable.toString()
+
+                    performSearch(searchText)
+                }
+            })
+            drawerLayout.closeDrawer(GravityCompat.START)
+            operationType = OperationType.FIND
+        }
+        val createUserB= findViewById<LinearLayout>(R.id.createUser)
+        createUserB.setOnClickListener {
+            val intent = Intent(this, RegistrationActivity::class.java)
+            startActivity(intent)
+        }
+
+        val shareWith= findViewById<LinearLayout>(R.id.shareWith)
+        shareWith.setOnClickListener {
+            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            if (enableBtIntent.resolveActivity(packageManager) != null) {
+                startActivity(Intent.createChooser(enableBtIntent, "share"))
+            }
+
+        }
+        resultBar = findViewById(R.id.resultBar)
+
+    }
+    fun performSearch(searchText: String) {
+        val tableRows = tableLayout.childCount
+
+        for (i in 0 until tableRows) {
+            val row = tableLayout.getChildAt(i) as TableRow
+            val cells = row.childCount
+
+            for (j in 0 until cells) {
+                val cell = row.getChildAt(j) as TextView
+                val cellText = cell.text.toString()
+
+
+                if (cellText.contains(searchText, ignoreCase = true) and searchText.isNotEmpty()) {
+
+                    cell.setBackgroundColor(Color.YELLOW)
+                } else if (i!=0){
+
+                    cell.setBackgroundResource(R.drawable.table_cell_border)
+                } else{
+                    cell.setBackgroundResource(R.drawable.table_header_cell_border)
+                }
+
+            }
+        }
+    }
+
+    private fun colourToStandart(){
+
+        val firstRow = tableLayout.getChildAt(0) as? TableRow
+        if (firstRow != null) {
+            for (j in 0 until firstRow.childCount) {
+                val editText = firstRow.getChildAt(j) as? EditText
+                editText?.setBackgroundResource(R.drawable.table_header_cell_border)
+            }
+        }
+        if (tableLayout.childCount!=1) {
+            for (i in 1 until tableLayout.childCount) {
+                val row = tableLayout.getChildAt(i) as TableRow
+                for (j in 0 until row.childCount+1) {
+                    val editText = row.getChildAt(j) as? EditText
+                    editText?.setBackgroundResource(R.drawable.table_cell_border)
+                }
+
+            }
+        }
+
+    }
+    private fun saveDataToManager() {
+        val data = mutableListOf<Array<String>>()
+
+        for (i in 0 until tableLayout.childCount) {
+            val row = tableLayout.getChildAt(i) as? TableRow
+            if (row != null) {
+                val rowData = mutableListOf<String>()
+
+                for (j in 0 until row.childCount) {
+                    val editText = row.getChildAt(j) as? EditText
+                    rowData.add(editText?.text?.toString() ?: "")
+                }
+
+                data.add(rowData.toTypedArray())
+            }
+        }
+        dataManager.saveData(data.toTypedArray())
+    }
 
 
 
